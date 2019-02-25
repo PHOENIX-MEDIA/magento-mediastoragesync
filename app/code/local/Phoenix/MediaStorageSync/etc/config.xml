@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Phoenix MediaStorageSync
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to license that is bundled with
+ * this package in the file LICENSE.txt.
+ *
+ * @category   Phoenix
+ * @package	   Phoenix_MediaStorageSync
+ * @copyright  Copyright (c) 2018 Phoenix Media GmbH (http://www.phoenix-media.eu)
+ */
+-->
+<config>
+    <modules>
+        <Phoenix_MediaStorageSync>
+            <version>0.3.0</version>
+        </Phoenix_MediaStorageSync>
+    </modules>
+    <global>
+        <models>
+            <phoenix_mediastoragesync>
+                <class>Phoenix_MediaStorageSync_Model</class>
+                <resourceModel>phoenix_mediastoragesync_resource</resourceModel>
+            </phoenix_mediastoragesync>
+            <phoenix_mediastoragesync_resource>
+                <class>Phoenix_MediaStorageSync_Model</class>
+            </phoenix_mediastoragesync_resource>
+            <core>
+                <rewrite>
+                    <file_storage_database>Phoenix_MediaStorageSync_Model_File_Storage</file_storage_database>
+                </rewrite>
+            </core>
+        </models>
+        <helpers>
+            <phoenix_mediastoragesync>
+                <class>Phoenix_MediaStorageSync_Helper</class>
+            </phoenix_mediastoragesync>
+        </helpers>
+        <events>
+            <catalog_product_load_before>
+                <observers>
+                    <phoenix_mediastoragesync_product_image_load_before>
+                        <class>phoenix_mediastoragesync/observer_product</class>
+                        <method>productImageLoadBefore</method>
+                    </phoenix_mediastoragesync_product_image_load_before>
+                </observers>
+            </catalog_product_load_before>
+            <catalog_product_collection_load_after>
+                <observers>
+                    <phoenix_mediastoragesync_product_image_load_before>
+                        <class>phoenix_mediastoragesync/observer_product_collection</class>
+                        <method>productImageLoadAfter</method>
+                    </phoenix_mediastoragesync_product_image_load_before>
+                </observers>
+            </catalog_product_collection_load_after>
+        </events>
+    </global>
+    <default>
+        <phoenix_mediastoragesync>
+            <settings>
+                <enabled>0</enabled>
+            </settings>
+        </phoenix_mediastoragesync>
+    </default>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <phoenix_mediastoragesync before="Mage_Adminhtml">Phoenix_MediaStorageSync_Adminhtml</phoenix_mediastoragesync>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>
