@@ -57,7 +57,7 @@ class Phoenix_MediaStorageSync_Model_Sync extends Mage_Core_Model_Abstract
 
         try {
             $image = $this->_getFileFromServer($src, $target);
-            if ($image->isSuccessful()) {
+            if (is_object($image) && $image->isSuccessful()) {
                 $io = new Varien_Io_File();
                 $io->setAllowCreateFolders(true);
                 $io->open(array('path' => $fileDirectory));

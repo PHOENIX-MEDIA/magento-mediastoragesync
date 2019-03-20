@@ -17,6 +17,10 @@ class Phoenix_MediaStorageSync_Model_Observer_Product_Collection extends Phoenix
      */
     public function productImageLoadAfter(Varien_Event_Observer $observer)
     {
+        if (Mage::helper('phoenix_mediastoragesync')->isEnabled()) {
+            return;
+        }
+
         $products = $observer->getEvent()->getCollection();
         $catalogMediaConfigPath = $this->_getHelper()->catalogMediaConfigPath();
 
