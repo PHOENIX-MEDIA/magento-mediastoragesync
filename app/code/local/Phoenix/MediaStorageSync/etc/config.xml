@@ -16,7 +16,7 @@
 <config>
     <modules>
         <Phoenix_MediaStorageSync>
-            <version>0.3.0</version>
+            <version>0.4.0</version>
         </Phoenix_MediaStorageSync>
     </modules>
     <global>
@@ -62,6 +62,7 @@
         <phoenix_mediastoragesync>
             <settings>
                 <enabled>0</enabled>
+                <download_limit>50</download_limit>
             </settings>
         </phoenix_mediastoragesync>
     </default>

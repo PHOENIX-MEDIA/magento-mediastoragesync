@@ -18,6 +18,7 @@ class Phoenix_MediaStorageSync_Helper_Data extends Mage_Core_Helper_Abstract
     const XML_PATH_URL = 'phoenix_mediastoragesync/settings/url';
     const XML_PATH_HTTP_CLIENT_USER = 'phoenix_mediastoragesync/settings/http_client_user';
     const XML_PATH_HTTP_CLIENT_PASSWORD = 'phoenix_mediastoragesync/settings/http_client_password';
+    const XML_PATH_DOWNLOAD_LIMIT = 'phoenix_mediastoragesync/settings/download_limit';
 
     /**
      * @return bool
@@ -49,6 +50,14 @@ class Phoenix_MediaStorageSync_Helper_Data extends Mage_Core_Helper_Abstract
     public function getHttpClientPassword()
     {
         return Mage::getStoreConfig(self::XML_PATH_HTTP_CLIENT_PASSWORD);
+    }
+
+    /**
+     * @return string
+     */
+    public function getDownloadLimit()
+    {
+        return Mage::getStoreConfig(self::XML_PATH_DOWNLOAD_LIMIT);
     }
 
     /**

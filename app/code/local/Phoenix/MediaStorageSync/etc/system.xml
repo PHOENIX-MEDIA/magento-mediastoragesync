@@ -83,6 +83,15 @@
                                 <enabled>1</enabled>
                             </depends>
                         </http_client_password>
+                        <download_limit>
+                            <label>Download Limit Per Request</label>
+                            <comment>Limit number of files downloaded per HTTP request. Stop downloading after x downloads to not run into endless loops.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </download_limit>
                     </fields>
                 </settings>
             </groups>

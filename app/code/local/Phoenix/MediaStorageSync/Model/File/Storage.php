@@ -35,7 +35,7 @@ class Phoenix_MediaStorageSync_Model_File_Storage extends Mage_Core_Model_File_S
     protected function _getMediaStorageSync()
     {
         if (is_null($this->_sync)) {
-            $this->_sync = Mage::getModel('phoenix_mediastoragesync/sync');
+            $this->_sync = Mage::getSingleton('phoenix_mediastoragesync/sync');
         }
         return $this->_sync;
     }

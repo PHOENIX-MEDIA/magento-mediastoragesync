@@ -35,7 +35,7 @@ abstract class Phoenix_MediaStorageSync_Model_Observer_Abstract
     protected function _getMediaStorageSync()
     {
         if (is_null($this->_sync)) {
-            $this->_sync = Mage::getModel('phoenix_mediastoragesync/sync');
+            $this->_sync = Mage::getSingleton('phoenix_mediastoragesync/sync');
         }
         return $this->_sync;
     }

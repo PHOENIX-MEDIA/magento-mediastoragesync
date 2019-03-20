@@ -24,6 +24,25 @@ class Phoenix_MediaStorageSync_Model_Sync extends Mage_Core_Model_Abstract
      */
     protected $_helper;
 
+    /**
+     * @var int
+     */
+    protected $_downloadCounter = 0;
+
+    /**
+     * @var int
+     */
+    protected $_downloadLimit;
+
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->_downloadLimit = (int)$this->_getHelper()->getDownloadLimit();
+    }
 
     /**
      * Starts the process to retrieve the file from server - SYNC!!!
@@ -83,17 +102,21 @@ class Phoenix_MediaStorageSync_Model_Sync extends Mage_Core_Model_Abstract
     {
         $response = false;
 
-        $fileUri = $this->_getHelper()->getUrl()
-            . $this->_getHelper()->getAssetPath($target)
-            . $src;
+        if ($this->_downloadLimit > $this->_downloadCounter) {
+            $fileUri = $this->_getHelper()->getUrl()
+                . $this->_getHelper()->getAssetPath($target)
+                . $src;
 
-        $client = $this->_getHttpClient($fileUri, array('GET'));
-        $client->setAdapter(new Varien_Http_Adapter_Curl());
+            $client = $this->_getHttpClient($fileUri, array('GET'));
+            $client->setAdapter(new Varien_Http_Adapter_Curl());
 
-        try {
-            $response = $client->request(Zend_Http_Client::GET);
-        } catch (Exception $e) {
-            Mage::logException($e);
+            try {
+                $response = $client->request(Zend_Http_Client::GET);
+            } catch (Exception $e) {
+                Mage::logException($e);
+            }
+
+            $this->_downloadCounter++;
         }
 
         return $response;
@@ -104,6 +127,7 @@ class Phoenix_MediaStorageSync_Model_Sync extends Mage_Core_Model_Abstract
      * @param array $params
      * @return Varien_Http_Client
      * @throws Mage_Core_Exception
+     * @throws Zend_Http_Client_Exception
      */
     protected function _getHttpClient($uri, array $params)
     {
