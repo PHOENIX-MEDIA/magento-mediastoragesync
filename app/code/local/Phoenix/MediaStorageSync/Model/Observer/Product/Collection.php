@@ -47,14 +47,11 @@ class Phoenix_MediaStorageSync_Model_Observer_Product_Collection extends Phoenix
             $this->_mediaAttributesCodes = array();
 
             $eav = Mage::getSingleton('eav/config');
-
-            $attributes = Mage::getResourceModel('eav/entity_attribute_collection')
-                ->setEntityTypeFilter($eav->getEntityType('catalog_product'))
-                ->getData();
-
-            foreach ($attributes as $attribute) {
-                if (isset($attribute['frontend_input']) && $attribute['frontend_input'] == 'media_image') {
-                    $this->_mediaAttributesCodes[] = $attribute['attribute_code'];
+            /* @var Mage_Eav_Model_Config $eav */
+            foreach ($eav->getEntityAttributeCodes(Mage_Catalog_Model_Product::ENTITY) as $attributeCode) {
+                $attribute = $eav->getAttribute(Mage_Catalog_Model_Product::ENTITY, $attributeCode);
+                if ($attribute->getData('frontend_input') == 'media_image') {
+                    $this->_mediaAttributesCodes[] = $attributeCode;
                 }
             }
         }
